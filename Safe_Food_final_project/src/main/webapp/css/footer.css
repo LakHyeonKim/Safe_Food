@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+.page-footer{
+	background-color:#f8f9fa;
+
+}
+
+.footer-copyright{
+	background-color: #8080808f;
+}
+
+
+.footer-copyright > span{
+	color: white;
+	font-size: large;
+}
+
+.footer-copyright b{
+	text-shadow: 2px -1px 5px black;
+} 

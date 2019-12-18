@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="foodMapper">
+	
+	<sql id="selectFoodsAllColumn">
+		SELECT
+		code, name, maker, material, img, supportpareat, calory, carbo, protein,
+		fat, sugar, natrium, chole, fattyacid, transfat, type
+		From allfoodview
+	</sql>
+	
+	<sql id="selectFoodsCodeColumn">
+		SELECT code From allfoodview
+	</sql>
+	
+	<sql id="orderbyUseridDesc">
+		order by user_id DESC
+	</sql>
+	
+	<select id="findFoodByName" parameterType="food" resultType="food">
+		<include refid="selectFoodsAllColumn"></include>
+		where name like '%${name}%'
+	</select>
+	
+	<select id="findFoodByMaker" parameterType="food" resultType="food">
+		<include refid="selectFoodsAllColumn"></include>
+		where maker like '%${maker}%'
+	</select>
+	
+	<select id="findFoodByMaterial" parameterType="food" resultType="food">
+		<include refid="selectFoodsAllColumn"></include>
+		where material like '%${material}%'
+	</select>
+	
+	<select id="findFoodByCode" parameterType="food" resultType="food">
+		<include refid="selectFoodsAllColumn"></include>
+		where code=#{code}
+	</select>
+	
+	
+	<!-- 알러지 정보 포함한 검색 -->
+	<select id="findFoodByNameAndMaterial" parameterType="food" resultType="food">
+		<include refid="selectFoodsAllColumn"></include>
+		where name like '%${name}%' AND material like '%${allergy}%'
+	</select>
+	
+	<select id="findFoodByMakerAndMaterial" parameterType="food" resultType="food">
+		<include refid="selectFoodsAllColumn"></include>
+		where maker like '%${maker}%' AND material like '%${allergy}%'
+	</select>
+	
+	<select id="findFoodByMaterialAndMaterial" parameterType="food" resultType="food">
+		<include refid="selectFoodsAllColumn"></include>
+		where material like '%${material}%' AND material like '%${allergy}%'
+	</select>
+	
+	<select id="findFoodByCodeAndMaterial" parameterType="food" resultType="food">
+		<include refid="selectFoodsAllColumn"></include>
+		where code=#{code} AND material like '%${allergy}%'
+	</select>
+	<!-- 알러지 정보 포함한 검색 -->
+	
+	<select id="findAllFood" resultType="food">
+		<include refid="selectFoodsAllColumn"></include>
+	</select>
+	
+</mapper>

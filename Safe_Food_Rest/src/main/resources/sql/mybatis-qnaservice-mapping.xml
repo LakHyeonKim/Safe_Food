@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 완벽한 행태의 CRUD가 다 들어있는 sqlMapper 이게 돌아간다면 MyBatis Framework에단에 문제가 없는 
+	것으로 본다 일종의 단위테스트...MyBatisAppTest.java 가 바로 MyBatis Mapper 단위테스트 -->
+
+<mapper namespace="QnAMapper">
+	<!-- 전체 검색 -->
+	<select id="findAllBoard" resultType="board">
+		select no, id, contents, date from board
+	</select>
+	<!-- board no로 댓글 검색 -->
+	<select id="findByNo" parameterType="int" resultType="comment">
+		select no, content, board_no from comment where board_no=#{value}
+	</select>
+	<!-- board no로 보드정보 검색 -->
+	<select id="findBoardByNo" parameterType="int" resultType="board">
+		select no, id, contents, date from board where no=#{value}
+	</select>
+	<!-- board id로 id 중복 검색 -->
+	<select id="findById" parameterType="string" resultType="board">
+		select no, id, contents, date from board where id=#{value}
+	</select>
+	<!-- board 내용 검색 -->
+	<select id="findByContents" parameterType="string" resultType="board">
+		select no, id, contents, date from board where contents like concat('%',#{value},'%')
+	</select>
+	
+	<insert id="addBoard" parameterType="board" useGeneratedKeys="true" keyProperty="no">
+		insert into board
+		(id,date,contents)
+		values(#{id},#{date},#{contents})
+	</insert>
+
+	<update id="updateBoard" parameterType="board">
+		update board set
+		id=#{id}, date=curdate(), contents=#{contents}
+		where no=#{no}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		delete from board where no=#{no}
+	</delete>
+
+	<insert id="addComment" parameterType="comment" useGeneratedKeys="true" keyProperty="no">
+		insert into comment
+		(content,board_no)
+		values(#{content},#{boardNo})
+	</insert>
+
+	<update id="updateComment" parameterType="comment">
+		update comment set
+		content=#{content}
+		where no=#{no}
+	</update>
+	
+	<delete id="deleteComment" parameterType="int">
+		delete from comment where no=#{no}
+	</delete>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

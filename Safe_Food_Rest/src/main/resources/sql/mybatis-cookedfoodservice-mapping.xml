@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 완벽한 행태의 CRUD가 다 들어있는 sqlMapper 이게 돌아간다면 MyBatis Framework에단에 문제가 없는 
+	것으로 본다 일종의 단위테스트...MyBatisAppTest.java 가 바로 MyBatis Mapper 단위테스트 -->
+
+<mapper namespace="CookedFoodMapper">
+	<!-- 음식 명으로 찾기 -->
+	<select id="findNameCookedFood" resultType="cookedFood" parameterType="string">
+		select 
+		round(avg(supportpareat)) supportpareat, 
+		round(avg(calory)) calory, 
+		round(avg(carbo)) carbo, 
+		round(avg(protein)) protein, 
+		round(avg(fat)) fat, 
+		round(avg(sugar)) sugar, 
+		round(avg(natrium)) natrium, 
+		round(avg(chole)) chole, 
+		round(avg(fattyacid)) fattyacid, 
+		round(avg(transfat)) transfat 
+		from cookedfood where name like concat('%',#{value},'%')
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
